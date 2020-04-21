@@ -17,6 +17,7 @@ export default {
   name: "boards",
   mounted() {
     this.$store.dispatch("getBoards");
+    console.log();
   },
   data() {
     return {
