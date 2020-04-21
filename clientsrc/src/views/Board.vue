@@ -1,11 +1,14 @@
 <template>
-  <div class="board">
-    <h1 v-if="board.title">{{board.title}}</h1>
-    <h1 v-else>Loading...</h1>
+  <div class="board bg-secondary">
+    Board
+    <!-- <h1 v-if="board.title">{{board.title}}</h1>
+    <h1 v-else>Loading...</h1>-->
+    <list />
   </div>
 </template>
 
 <script>
+import list from "../components/List";
 export default {
   name: "board",
   computed: {
@@ -14,6 +17,7 @@ export default {
       return this.$store.state.activeBoard;
     }
   },
-  props: ["boardId"]
+  props: ["boardId"],
+  components: { list }
 };
 </script>
