@@ -10,7 +10,7 @@ let base = window.location.host.includes('localhost') ? '//localhost:3000/' : '/
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 3000,
+  timeout: 8000,
   withCredentials: true
 })
 
