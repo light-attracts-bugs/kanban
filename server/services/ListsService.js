@@ -3,6 +3,9 @@ import { BadRequest } from "../utils/Errors"
 
 
 class ListService {
+  getTasksByListId(id, email) {
+    throw new Error("Method not implemented.")
+  }
   async getAll(userEmail) {
     return await dbContext.Lists.find({ creatorEmail: userEmail }).populate("creator", "name picture")
   }
