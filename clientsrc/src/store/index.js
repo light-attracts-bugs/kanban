@@ -19,7 +19,8 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     activeBoard: {},
-    activeList: {}
+    lists: [],
+    activeLists: [],
   },
   mutations: {
     setUser(state, user) {
@@ -31,8 +32,8 @@ export default new Vuex.Store({
     setActiveBoard(state, board) {
       state.activeBoard = board
     },
-    setActiveList(state, list) {
-      state.activeList = list
+    setLists(state, lists) {
+      state.activeLists = lists
     },
   },
   actions: {
@@ -55,14 +56,23 @@ export default new Vuex.Store({
 
 
     //#region -- BOARDS --
-    getBoards({ commit, dispatch }) {
-      api.get('boards')
+    async getBoard({ commit }, boardId) {
+      try {
+        let res = await api.get(`boards/${boardId}`);
+        commit("setActiveBoard", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async getBoards({ commit, dispatch }) {
+      let res = await api.get('boards')
         .then(res => {
           commit('setBoards', res.data)
         })
     },
-    addBoard({ commit, dispatch }, boardData) {
-      api.post('boards', boardData)
+    async addBoard({ commit, dispatch }, boardData) {
+      let res = await api.post('boards', boardData)
         .then(serverBoard => {
           dispatch('getBoards')
         })
@@ -71,20 +81,20 @@ export default new Vuex.Store({
 
 
     //#region -- LISTS --
-    getLists({ commit, dispatch }) {
-      api.get('board/lists')
-        .then(res => {
-          commit('setLists', res.data)
-        })
+    async getLists({ commit, dispatch }, boardId) {
+      try {
+        let res = await api.get(`lists/${boardId}`)
+        commit("setLists", res.data)
+      } catch (err) {
+        console.error(err)
+      }
     },
-    addList({ commit, dispatch }, listData) {
-      api.post('lists', listData)
-        .then(serverList => {
-          dispatch('getLists')
-        })
+
+    async addList({ commit, dispatch }, newList) {
+      let res = await api.post('lists', newList)
+      dispatch('getLists', newList.boardId)
     }
+  },
 
-
-    //#endregion
-  }
+  //#endregion
 })

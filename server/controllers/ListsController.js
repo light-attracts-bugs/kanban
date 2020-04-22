@@ -1,7 +1,7 @@
 import express from 'express'
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
-import { listService } from '../services/ListService'
+import { listService } from '../services/ListsService'
 
 
 
@@ -11,7 +11,8 @@ export class ListsController extends BaseController {
     super("api/lists")
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
-      .get('/:boardId', this.getById)
+      .get('', this.getAll)
+      .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -21,7 +22,7 @@ export class ListsController extends BaseController {
   async getAll(req, res, next) {
     try {
       //only gets lists by user who is logged in
-      //let data = await listService.getAll(req.userInfo.email)
+      let data = await listService.getAll(req.userInfo.email)
       return res.send(data)
     }
     catch (err) { next(err) }
