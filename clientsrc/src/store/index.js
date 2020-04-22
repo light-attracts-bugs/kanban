@@ -18,7 +18,8 @@ export default new Vuex.Store({
   state: {
     user: {},
     boards: [],
-    activeBoard: {}
+    activeBoard: {},
+    activeList: {}
   },
   mutations: {
     setUser(state, user) {
@@ -26,7 +27,13 @@ export default new Vuex.Store({
     },
     setBoards(state, boards) {
       state.boards = boards
-    }
+    },
+    setActiveBoard(state, board) {
+      state.activeBoard = board
+    },
+    setActiveList(state, list) {
+      state.activeList = list
+    },
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -59,12 +66,23 @@ export default new Vuex.Store({
         .then(serverBoard => {
           dispatch('getBoards')
         })
-    }
+    },
     //#endregion
 
 
     //#region -- LISTS --
-
+    getLists({ commit, dispatch }) {
+      api.get('board/lists')
+        .then(res => {
+          commit('setLists', res.data)
+        })
+    },
+    addList({ commit, dispatch }, listData) {
+      api.post('lists', listData)
+        .then(serverList => {
+          dispatch('getLists')
+        })
+    }
 
 
     //#endregion

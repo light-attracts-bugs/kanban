@@ -13,30 +13,30 @@
 </template>
 
 <script>
-export default {
-  name: "boards",
-  mounted() {
-    this.$store.dispatch("getBoards");
-    console.log();
-  },
-  data() {
-    return {
-      newBoard: {
-        title: "",
-        description: ""
+  export default {
+    name: "boards",
+    mounted() {
+      this.$store.dispatch("getBoards");
+      console.log();
+    },
+    data() {
+      return {
+        newBoard: {
+          title: "",
+          description: ""
+        }
+      };
+    },
+    computed: {
+      boards() {
+        return this.$store.state.boards;
       }
-    };
-  },
-  computed: {
-    boards() {
-      return this.$store.state.boards;
-    }
-  },
-  methods: {
-    addBoard() {
-      this.$store.dispatch("addBoard", this.newBoard);
-      this.newBoard = { title: "", description: "" };
-    }
-  }
-};
+    },
+    methods: {
+      addBoard() {
+        this.$store.dispatch("addBoard", this.newBoard);
+        this.newBoard = { title: "", description: "" };
+      }
+    },
+  };
 </script>
