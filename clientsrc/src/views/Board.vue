@@ -3,7 +3,7 @@
     Board
     <h1 v-if="board.title">{{board.title}}</h1>
     <h1 v-else>Loading...</h1>
-    <List v-for="list in lists" :key="list.id" :listData="list">lists go here.</List>
+    <list v-for="list in lists" :key="list.id" :listData="list"></list>
     <form @submit.prevent="addList">
       <input type="text" placeholder="title" v-model="newList.title" required />
       <button type="submit">Create List</button>

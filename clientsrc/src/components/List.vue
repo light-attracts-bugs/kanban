@@ -1,7 +1,7 @@
 <template>
   <div class="list bg-danger text-center w-75 h-75 m-auto">
     List
-    <p>{{list.title}}</p>
+    <p>{{listData.title}}</p>
     <task />
   </div>
 </template>
@@ -14,7 +14,7 @@
     data() {
       return {};
     },
-    props: ["list"],
+    props: ["listData"],
     computed: {},
     methods: {},
     components: { task }

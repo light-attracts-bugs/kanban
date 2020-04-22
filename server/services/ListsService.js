@@ -35,7 +35,17 @@ class ListService {
     }
   }
 
+  async getListByBoardId(id, email) {
+    let data = await dbContext.Lists.find({ boardId: id, creatorEmail: email })
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not own this board")
+    }
+    return data
+  }
+
 }
+
+
 
 
 export const listService = new ListService()
