@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import list from "../components/List";
+  import List from "../components/List.vue";
   export default {
     name: "board",
     props: ["board"],

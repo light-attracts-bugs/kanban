@@ -20,9 +20,10 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-    activeLists: [],
+    activeLists: {},
     tasks: [],
-    activeTasks: [],
+    activeTasks: {},
+    comments: []
   },
   mutations: {
     setUser(state, user) {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     },
     setTasks(state, tasks) {
       state.tasks = tasks
+    },
+    setComments(state, comments) {
+      state.comments = comments
     },
   },
   actions: {
@@ -82,6 +86,23 @@ export default new Vuex.Store({
           dispatch('getBoards')
         })
     },
+
+    async getActiveBoard({ commit, dispatch }, board) {
+      try {
+        let res = await api.get('boards/' + board)
+        commit('setActiveBoard', res.data)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async deleteBoard({ commit, dispatch }, boardId) {
+      try {
+        await api.delete("boards/" + boardId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     //#endregion
 
 
@@ -100,6 +121,13 @@ export default new Vuex.Store({
       dispatch('getLists', newList.boardId)
     },
 
+    async deleteList({ commit, dispatch }, listData) {
+      try {
+        await api.delete("lists/" + listData.id)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     //#endregion
 
     //#region -- TASKS --
@@ -113,9 +141,43 @@ export default new Vuex.Store({
     },
 
     async addTask({ commit, dispatch }, newTask) {
-      let res = await api.post('tasks', newTask)
-      dispatch('getTasks', newTask.listId)
-    }
+      try {
+        let res = await api.post("tasks", newTask)
+        dispatch("getTasks", newTask.listId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async deleteTask({ commit, dispatch }, taskData) {
+      try {
+        await api.delete("tasks/" + taskData.id)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     //#endregion 
+
+    //#region -- COMMENTS --
+    async getComments({ commit, dispatch }, taskId) {
+      try {
+        let res = await api.get('tasks/' + taskId + '/comments')
+        console.log("comments", res.data)
+        commit("setComments", res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async addComment({ commit, dispatch }, newComment) {
+      let res = await api.post("comments", newComment)
+      // dispatch("getComments", newComment)
+    },
+    async deleteComment({ commit, dispatch }, commentData) {
+      try {
+        await api.delete("comments/" + commentData.id)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    //#endregion
   }
 })

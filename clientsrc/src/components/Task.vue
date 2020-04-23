@@ -8,16 +8,38 @@
 
 
 <script>
-  import comment from "../components/Comment";
+  import Comment from "../components/Comment";
   export default {
-    name: "task",
+    name: "Task",
     data() {
-      return {};
+      return {
+        newComment: {},
+      };
     },
     props: ["taskData"],
-    computed: {},
-    methods: {},
-    components: { comment }
+    computed: {
+      comments() {
+        return this.$store.state.comments;
+      }
+    },
+    methods: {
+      getComments() {
+        this.$store.dispatch("getComments", this.taskData.id);
+      },
+      addComment() {
+        this.newComment.creatorName = this.$auth.user.name;
+        this.newComment.taskId = this.taskData.id;
+        console.log(this.newComment);
+        this.$store.dispatch("addComment", this.newComment);
+        this.newComment = {};
+        this.getComments();
+      },
+      deleteTask() {
+        this.$store.dispatch("deleteTask", this.taskData);
+        this.$store.dispatch("getTasks", this.taskData.listId);
+      }
+    },
+    components: { Comment }
   };
 </script>
 

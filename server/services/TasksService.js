@@ -2,7 +2,7 @@ import { dbContext } from "../db/DbContext"
 import { BadRequest } from "../utils/Errors"
 
 
-class TaskService {
+class TasksService {
   async getAll(userEmail) {
     return await dbContext.Tasks.find({ creatorEmail: userEmail }).populate("creator", "name picture")
   }
@@ -48,4 +48,4 @@ class TaskService {
 
 
 
-export const taskService = new TaskService()
+export const tasksService = new TasksService()
