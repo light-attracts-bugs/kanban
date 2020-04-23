@@ -8,39 +8,39 @@
 
 
 <script>
-  import Comment from "../components/Comment";
-  export default {
-    name: "Task",
-    data() {
-      return {
-        newComment: {},
-      };
+import Comment from "../components/Comment";
+export default {
+  name: "task",
+  data() {
+    return {
+      newComment: {}
+    };
+  },
+  props: ["taskData"],
+  computed: {
+    comments() {
+      return this.$store.state.comments;
+    }
+  },
+  methods: {
+    getComments() {
+      this.$store.dispatch("getComments", this.taskData.id);
     },
-    props: ["taskData"],
-    computed: {
-      comments() {
-        return this.$store.state.comments;
-      }
+    addComment() {
+      this.newComment.creatorName = this.$auth.user.name;
+      this.newComment.taskId = this.taskData.id;
+      console.log(this.newComment);
+      this.$store.dispatch("addComment", this.newComment);
+      this.newComment = {};
+      this.getComments();
     },
-    methods: {
-      getComments() {
-        this.$store.dispatch("getComments", this.taskData.id);
-      },
-      addComment() {
-        this.newComment.creatorName = this.$auth.user.name;
-        this.newComment.taskId = this.taskData.id;
-        console.log(this.newComment);
-        this.$store.dispatch("addComment", this.newComment);
-        this.newComment = {};
-        this.getComments();
-      },
-      deleteTask() {
-        this.$store.dispatch("deleteTask", this.taskData);
-        this.$store.dispatch("getTasks", this.taskData.listId);
-      }
-    },
-    components: { Comment }
-  };
+    deleteTask() {
+      this.$store.dispatch("deleteTask", this.taskData);
+      this.$store.dispatch("getTasks", this.taskData.listId);
+    }
+  },
+  components: { Comment }
+};
 </script>
 
 

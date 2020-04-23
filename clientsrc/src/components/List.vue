@@ -29,6 +29,26 @@
     </div>
     <p>{{listData.title}}</p>
     <task />
+    <div class="row text-center">
+      <div class="col-12">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter a new task here..."
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-light btn-success"
+              type="button"
+              id="button-addon2"
+            >Add Task</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
