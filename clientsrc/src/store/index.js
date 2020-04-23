@@ -23,7 +23,7 @@ export default new Vuex.Store({
     activeBoard: {},
     lists: [],
     activeLists: {},
-    tasks: [],
+    tasks: {},
     activeTasks: {},
     comments: [],
   },
@@ -40,8 +40,9 @@ export default new Vuex.Store({
     setLists(state, lists) {
       state.lists = lists;
     },
-    setTasks(state, tasks) {
-      state.tasks = tasks;
+    setTasks(state, payload) {
+      //state.tasks[payload.listId] = payload.tasks
+      Vue.set(state.tasks, payload.listId, payload.tasks)
     },
     setComments(state, comments) {
       state.comments = comments;
@@ -49,7 +50,7 @@ export default new Vuex.Store({
   },
   actions: {
     //#region -- AUTH STUFF --
-    setBearer({}, bearer) {
+    setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },
     resetBearer() {
@@ -149,7 +150,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get("lists/" + listId + "/tasks");
         console.log("getTasks called... res:", res);
-        commit("setTasks", res.data);
+        commit("setTasks", { listId, tasks: res.data });
       } catch (err) {
         console.error(err);
       }
