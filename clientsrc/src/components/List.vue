@@ -31,6 +31,12 @@
     <task />
     <div class="row text-center">
       <div class="col-12">
+        <input
+          class="rounded shadow w-100 bg-warning my-1"
+          type="text"
+          placeholder="New task title..."
+          v-model="newTask.title"
+        />
         <div class="input-group mb-3">
           <input
             type="text"
@@ -38,12 +44,15 @@
             placeholder="Enter a new task here..."
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
+            v-model="newTask.description"
           />
+
           <div class="input-group-append">
             <button
               class="btn btn-outline-light btn-success"
               type="button"
               id="button-addon2"
+              @click="addTask()"
             >Add Task</button>
           </div>
         </div>
@@ -58,11 +67,29 @@ import task from "../components/Task.vue";
 export default {
   name: "list",
   data() {
-    return {};
+    return {
+      newTask: {}
+    };
   },
   props: ["listData"],
   computed: {},
-  methods: {},
+  methods: {
+    addTask() {
+      this.newTask.listId = this.listData.id;
+      console.log(this.newTask);
+
+      this.$store.dispatch("addTask", this.newTask);
+      this.newList = {};
+      getTasks();
+    },
+
+    getTasks() {
+      this.$store.dispatch("getLists", this.listData.id);
+    }
+  },
+  mounted() {
+    getTasks();
+  },
   components: { task }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="task bg-info text-center w-75 h-75 m-auto">
     Task
-    <p>{{taskData.title}}</p>
+    <!-- <p>{{taskData.title}}</p> -->
     <comment />
   </div>
 </template>
