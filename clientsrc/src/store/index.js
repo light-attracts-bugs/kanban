@@ -96,6 +96,14 @@ export default new Vuex.Store({
       }
     },
 
+    async editBoard({ commit, dispatch }, board) {
+      try {
+        await api.put('boards/' + board.id, board)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
     async deleteBoard({ commit, dispatch }, boardId) {
       try {
         await api.delete("boards/" + boardId)
@@ -119,6 +127,14 @@ export default new Vuex.Store({
     async addList({ commit, dispatch }, newList) {
       let res = await api.post('lists', newList)
       dispatch('getLists', newList.boardId)
+    },
+
+    async editList({ commit, dispatch }, listData) {
+      try {
+        await api.put('lists/' + listData.id, listData)
+      } catch (error) {
+        console.error(error)
+      }
     },
 
     async deleteList({ commit, dispatch }, listData) {
@@ -148,6 +164,15 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+
+    async editTask({ commit, dispatch }, taskData) {
+      try {
+        await api.delete("tasks/" + taskData.id)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
     async deleteTask({ commit, dispatch }, taskData) {
       try {
         await api.delete("tasks/" + taskData.id)
@@ -167,10 +192,19 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+
     async addComment({ commit, dispatch }, newComment) {
       let res = await api.post("comments", newComment)
-      // dispatch("getComments", newComment)
     },
+
+    async editComment({ commit, dispatch }, commentData) {
+      try {
+        await api.delete("comments/" + commentData.id)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
     async deleteComment({ commit, dispatch }, commentData) {
       try {
         await api.delete("comments/" + commentData.id)
