@@ -80,15 +80,15 @@ export default {
 
       this.$store.dispatch("addTask", this.newTask);
       this.newList = {};
-      getTasks();
+      this.$store.dispatch("getTasks", this.listData.id);
     },
 
     getTasks() {
-      this.$store.dispatch("getLists", this.listData.id);
+      this.$store.dispatch("getTasks", this.listData.id);
     }
   },
   mounted() {
-    getTasks();
+    this.$store.dispatch("getTasks", this.listData.id);
   },
   components: { task }
 };
