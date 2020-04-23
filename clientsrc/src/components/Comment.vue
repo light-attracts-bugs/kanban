@@ -1,5 +1,8 @@
 <template>
-  <div class="comment bg-light w-75 m-auto rounded shadow">Comment here...</div>
+  <div class="comment bg-light w-75 m-auto rounded shadow">Comment here...
+    <p>{{commentData.body}}</p>
+
+  </div>
 </template>
 
 
@@ -10,7 +13,12 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    deleteComment() {
+      this.$store.dispatch("deleteComment", this.commentData);
+      this.$store.dispatch("getComments", this.comment.taskId);
+    }
+  },
   components: {}
 };
 </script>

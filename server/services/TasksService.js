@@ -35,6 +35,14 @@ class TasksService {
     }
   }
 
+  async getTasksByListId(id, email) {
+    let data = await dbContext.Tasks.find({ listId: id, creatorEmail: email })
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not own this task")
+    }
+    return data
+  }
+
   async getCommentsByTaskId(id, email) {
     let data = await dbContext.Tasks.find({ taskId: id, creatorEmail: email })
     if (!data) {

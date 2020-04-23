@@ -1,8 +1,46 @@
 <template>
   <div class="task bg-info text-center w-75 h-75 m-auto">
-    Task
-    <!-- <p>{{taskData.title}}</p> -->
-    <comment />
+    <div class="row text-center">
+      <div class="col-12 text-right">
+        <div
+          class="btn-group rounded mt-1 text-right shadow"
+          role="group"
+          aria-label="Button group with nested dropdown"
+        >
+          <button type="button" class="btn btn-warning">Edit</button>
+          <button type="button" class="btn btn-info">Delete</button>
+        </div>
+      </div>
+    </div>
+    <p>{{taskData.title}}</p>
+    <p>{{taskData.description}}</p>
+    <div class="row text-center">
+      <div class="col-12">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="comment"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+            v-model="newComment.description"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-light btn-success"
+              type="button"
+              id="button-addon2"
+              @click="addComment()"
+            >Add Comment</button>
+          </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-12">
+          <comment v-for="comment in comments" :key="comment.id" :taskData="task"></comment>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

@@ -9,22 +9,12 @@
         >
           <button type="button" class="btn btn-warning">Edit</button>
           <button type="button" class="btn btn-info">Delete</button>
-
-          <!-- <div class="btn-group" role="group">
-            <button
-              id="btnGroupDrop1"
-              type="button"
-              class="btn btn-secondary dropdown-toggle"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >Move To...</button>
-            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-              <a class="dropdown-item" href="#">Dropdown link</a>
-              <a class="dropdown-item" href="#">Dropdown link</a>
-            </div>
-          </div>-->
         </div>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-12">
+        <task v-for="task in tasks" :key="task.id" :taskData="task"></task>
       </div>
     </div>
     <p>{{listData.title}}</p>
@@ -72,7 +62,15 @@ export default {
     };
   },
   props: ["listData"],
-  computed: {},
+  computed: {
+    tasks() {
+      return this.$store.state.tasks;
+    }
+    // board() {
+    //   //FIXME This does not work on page reload because the activeBoard is empty in the store
+    //   return this.$store.state.activeList;
+    // },
+  },
   methods: {
     addTask() {
       this.newTask.listId = this.listData.id;
