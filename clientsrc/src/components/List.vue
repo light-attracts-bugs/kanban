@@ -1,56 +1,52 @@
 <template>
-  <div class="list bg-danger text-center w-75 h-75 m-auto">
-    <h1 v-if="listData.title">{{listData.title}}</h1>
-    <h1 v-else>Loading...</h1>
-    <Task v-for="task in tasks" :key="task.id" :taskData="task"></Task>
-    <form @submit.prevent="addtask">
-      <input type="text" placeholder="title" v-model="newTask.title" required />
-      <button type="submit">Create Task</button>
-    </form>
+  <div class="list bg-danger text-center mx-1 my-3 col-3 rounded shadow">
+    <div class="row text-center">
+      <div class="col-12 text-right">
+        <div
+          class="btn-group rounded mt-1 text-right shadow"
+          role="group"
+          aria-label="Button group with nested dropdown"
+        >
+          <button type="button" class="btn btn-warning">Edit</button>
+          <button type="button" class="btn btn-info">Delete</button>
+
+          <!-- <div class="btn-group" role="group">
+            <button
+              id="btnGroupDrop1"
+              type="button"
+              class="btn btn-secondary dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >Move To...</button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <a class="dropdown-item" href="#">Dropdown link</a>
+              <a class="dropdown-item" href="#">Dropdown link</a>
+            </div>
+          </div>-->
+        </div>
+      </div>
+    </div>
+    <p>{{listData.title}}</p>
+    <task />
   </div>
 </template>
 
 
 <script>
-  import Task from "../components/Task.vue";
-  export default {
-    name: "list",
-    props: ["listData"],
-    data() {
-      return {
-        newTask: {}
-      };
-    },
-    computed: {
-      list() {
-        //FIXME This does not work on page reload because the activeTask is empty in the store
-        return this.$store.state.activeList;
-      },
-      tasks() {
-        //FIXME This does not work on page reload because the activeTask is empty in the store
-        return this.$store.state.tasks;
-      },
-    },
-
-    methods: {
-      addTask() {
-        this.newTask.listId = this.$route.params.listId;
-        console.log(this.newTask)
-        this.$store.dispatch("addTask", this.newTask);
-        this.newTask = {};
-      },
-
-      deleteList() {
-        this.$store.dispatch("deleteList", this.listData);
-        this.$store.dispatch("getLists", this.listData.boardId);
-      }
-    },
-    mounted() {
-      this.$store.dispatch("getTasks", this.listData.listId);
-    },
-    components: { Task }
-  };
+import task from "../components/Task.vue";
+export default {
+  name: "list",
+  data() {
+    return {};
+  },
+  props: ["listData"],
+  computed: {},
+  methods: {},
+  components: { task }
+};
 </script>
+
 
 <style scoped>
 </style>

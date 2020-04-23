@@ -1,28 +1,18 @@
 <template>
-  <div class="comment bg-light w-75 h-75 m-auto">
-    {{commentData.body}}
-    {{commentData.creatorName}}
-    <button class="btn-sm btn-dangerS" @click="deleteComment">delete</button>
-  </div>
+  <div class="comment bg-light w-75 m-auto rounded shadow">Comment here...</div>
 </template>
 
 
 <script>
-  export default {
-    name: "comment",
-    props: ["commentData"],
-    data() {
-      return {};
-    },
-    computed: {},
-    methods: {
-      async deleteComment() {
-        await this.$store.dispatch("deleteComment", this.commentData);
-        this.$store.dispatch("getComments", this.commentData.taskId);
-      }
-    },
-    components: {}
-  };
+export default {
+  name: "comment",
+  data() {
+    return {};
+  },
+  computed: {},
+  methods: {},
+  components: {}
+};
 </script>
 
 
