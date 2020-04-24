@@ -1,6 +1,5 @@
 <template>
   <div class="comment bg-light w-75 m-auto rounded shadow">
-    Comment here...
     <p>{{commentData.body}}</p>
     <button type="submit">
       <i class="fas fa-pencil-alt text-warning"></i>

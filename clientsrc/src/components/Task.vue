@@ -39,7 +39,6 @@
     data() {
       return {
         newComment: {
-          // name:this.$store.state.user.name
         }
       };
     },
