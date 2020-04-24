@@ -1,13 +1,12 @@
 <template>
   <div class="board bg-secondary container-fluid">
     <div class="row justify-content-around">
-      <!-- Board
-    <h1 v-if="board.title">{{board.title}}</h1>
+      <!-- <h1 v-if="board.title">{{board.title}}</h1>
       <h1 v-else>Loading...</h1>-->
       <list v-for="list in lists" :key="list.id" :listData="list"></list>
     </div>
     <div class="row mt-5">
-      <div class="col-12">
+      <div class="col-12 pb-5">
         <form @submit.prevent="addList">
           <input type="text" placeholder="title" v-model="newList.title" required />
           <button type="submit">Create List</button>
