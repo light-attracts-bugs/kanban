@@ -39,6 +39,7 @@
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
             v-model="newComment.body"
+            onfocus="this.value=''"
           />
           <div class="input-group-append">
             <button

@@ -42,6 +42,7 @@
           type="text"
           placeholder="New task title..."
           v-model="newTask.title"
+          onfocus="this.value=''"
         />
         <div class="input-group mb-3">
           <input
@@ -51,6 +52,7 @@
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
             v-model="newTask.description"
+            onfocus="this.value=''"
           />
 
           <div class="input-group-append">
