@@ -51,7 +51,9 @@ export default {
   name: "task",
   data() {
     return {
-      newComment: {}
+      newComment: {
+        // name:this.$store.state.user.name
+      }
     };
   },
   props: ["taskData"],
