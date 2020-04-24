@@ -6,7 +6,7 @@ import router from "../router/index";
 Vue.use(Vuex);
 
 //Allows axios to work locally or live
-let base = window.location.host.includes("localhost")
+let base = window.location.host.includes("localhost") ? '//localhost:3000' : '/'
   ? "//localhost:3000/"
   : "/";
 
