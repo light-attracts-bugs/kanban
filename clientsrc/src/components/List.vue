@@ -6,7 +6,7 @@
         <div class="btn-group rounded mt-1 text-right shadow" role="group"
           aria-label="Button group with nested dropdown">
           <button type="button" class="btn btn-warning">Edit</button>
-          <button type="button" class="btn btn-info">Delete</button>
+          <button type="button" class="btn btn-info" @click="deleteList()">Delete</button>
         </div>
       </div>
     </div>
@@ -60,6 +60,11 @@
       }
     },
     methods: {
+      deleteList() {
+        this.$store.dispatch("deleteList", this.listData);
+        this.$store.dispatch("getLists", this.listData.boardId);
+      },
+
       addTask() {
         this.newTask.listId = this.listData.id;
         console.log(this.newTask);

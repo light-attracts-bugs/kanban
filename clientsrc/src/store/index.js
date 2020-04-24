@@ -200,7 +200,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get("tasks/" + taskId + "/comments");
         console.log("comments", res.data);
-        commit("setComments", res.data);
+        commit("setComments", { taskId, comments: res.data });
       } catch (error) {
         console.error(error);
       }

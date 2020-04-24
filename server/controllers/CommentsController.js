@@ -27,12 +27,12 @@ export class CommentsController extends BaseController {
     catch (err) { next(err) }
   }
 
-  // async getById(req, res, next) {
-  //   try {
-  //     let data = await commentsService.getById(req.params.id, req.userInfo.email)
-  //     return res.send(data)
-  //   } catch (error) { next(error) }
-  // }
+  async getById(req, res, next) {
+    try {
+      let data = await commentsService.getById(req.params.id, req.userInfo.email)
+      return res.send(data)
+    } catch (error) { next(error) }
+  }
 
   async create(req, res, next) {
     try {

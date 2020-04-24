@@ -5,7 +5,7 @@
         <div class="btn-group rounded mt-1 text-right shadow" role="group"
           aria-label="Button group with nested dropdown">
           <button type="button" class="btn btn-warning">Edit</button>
-          <button type="button" class="btn btn-info">Delete</button>
+          <button type="button" class="btn btn-info" @click="deleteTask()">Delete</button>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
       </div>
       <div class="row text-center">
         <div class="col-12">
-          <comment v-for="comment in comments" :key="comment.id" :commentData="comment"  :taskId="taskData.id"></comment>
+          <comment v-for="comment in comments" :key="comment.id" :commentData="comment" :taskId="taskData.id"></comment>
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@
         //event.dataTransfer.setData("list", this.listId);
       }
     },
-      mounted() {
+    mounted() {
       this.$store.dispatch("getComments", this.taskData.id);
     },
     components: { Comment }
