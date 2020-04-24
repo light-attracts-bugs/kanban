@@ -47,7 +47,7 @@ export default new Vuex.Store({
     },
     setComments(state, payload) {
       // state.comments = comments;
-      Vue.set(state.comments, payload.taskId, payload.comment)
+      Vue.set(state.comments, payload.taskId, payload.comments)
     },
     setTaskToMove(state, taskData) {
       state.tempTask = taskData
