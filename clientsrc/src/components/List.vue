@@ -1,5 +1,6 @@
 <template>
-  <div class="list bg-danger text-center mx-1 my-3 col-3 rounded shadow">
+  <div class="list bg-danger text-center mx-1 my-3 col-3 rounded shadow" dropzone="zone"
+    @drop.prevent="moveTask(listData)" @dragover.prevent>
     <div class="row text-center">
       <div class="col-12 text-right">
         <div class="btn-group rounded mt-1 text-right shadow" role="group"
@@ -10,12 +11,13 @@
       </div>
     </div>
     <div class="row text-center">
-      <div class="col-12">
-        <task v-for="task in tasks" :key="task.id" :taskData="task"></task>
+      <div class="col-12 taskItems">
+        <task draggable="true" v-for="(task, index) in tasks" :key="task.id" :taskData="task" :listId="listData.id"
+          @dragstart="reorderTask(task, index)">
+        </task>
       </div>
     </div>
     <p>{{listData.title}}</p>
-    <task />
     <div class="row text-center">
       <div class="col-12">
         <input class="rounded shadow w-100 bg-warning my-1" type="text" placeholder="New task title..."
@@ -53,6 +55,9 @@
       //   //FIXME This does not work on page reload because the activeBoard is empty in the store
       //   return this.$store.state.activeList;
       // },
+      tempTask() {
+        return this.$store.state.tempTask;
+      }
     },
     methods: {
       addTask() {
@@ -66,6 +71,25 @@
 
       getTasks() {
         this.$store.dispatch("getTasks", this.listData.id);
+      },
+
+      reorderTask(task, index) {
+        console.log(task, index);
+        this.$store.dispatch("setItemToMove", {
+          task: task,
+          oldRoom: this.roomData
+        });
+      },
+      moveTask(roomData) {
+        console.log(roomData);
+        console.log("dropping Task");
+        let task = JSON.parse(event.dataTransfer.getData("data"));
+        let moveData = {
+          newListId: listData.id,
+          oldListId: event.dataTransfer.getData("list"),
+          taskToMove: task
+        };
+        this.$store.dispatch("moveTask", moveData);
       }
     },
     mounted() {
