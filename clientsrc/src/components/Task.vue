@@ -15,7 +15,7 @@
       <div class="col-12">
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="comment" aria-label="Recipient's username"
-            aria-describedby="button-addon2" v-model="newComment.description" />
+            aria-describedby="button-addon2" v-model="newComment.body" />
           <div class="input-group-append">
             <button class="btn btn-outline-light btn-success" type="button" id="button-addon2" @click="addComment()">Add
               Comment</button>
