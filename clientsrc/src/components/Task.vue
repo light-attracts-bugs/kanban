@@ -46,7 +46,7 @@
     props: ["taskData"],
     computed: {
       comments() {
-        return this.$store.state.comments;
+        return this.$store.state.comments[this.taskData.id];
       }
     },
     methods: {
