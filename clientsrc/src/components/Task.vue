@@ -72,6 +72,9 @@
         //event.dataTransfer.setData("list", this.listId);
       }
     },
+      mounted() {
+      this.$store.dispatch("getComments", this.taskData.id);
+    },
     components: { Comment }
   };
 </script>
