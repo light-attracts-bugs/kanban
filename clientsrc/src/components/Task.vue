@@ -24,7 +24,7 @@
       </div>
       <div class="row text-center">
         <div class="col-12">
-          <comment v-for="comment in comments" :key="comment.id" :commentData="comment"></comment>
+          <comment v-for="comment in comments" :key="comment.id" :commentData="comment"  :taskId="taskData.id"></comment>
         </div>
       </div>
     </div>
