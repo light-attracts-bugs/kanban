@@ -50,7 +50,7 @@
     computed: {
       tasks() {
         return this.$store.state.tasks[this.listData.id];
-      }
+      },
       // board() {
       //   //FIXME This does not work on page reload because the activeBoard is empty in the store
       //   return this.$store.state.activeList;

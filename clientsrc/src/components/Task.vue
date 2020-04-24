@@ -1,5 +1,5 @@
 <template>
-  <div class="task bg-info text-center w-75 h-75 m-auto" @dragstart="startZone()">
+  <div class="task bg-info text-center w-75 h-75 m-auto" @dragstart="moveTask()">
     <div class="row text-center">
       <div class="col-12 text-right">
         <div class="btn-group rounded mt-1 text-right shadow" role="group"
@@ -33,35 +33,15 @@
 
 
 <script>
-<<<<<<< HEAD
   import Comment from "../components/Comment";
   export default {
     name: "task",
     data() {
       return {
-        newComment: {}
+        newComment: {
+          // name:this.$store.state.user.name
+        }
       };
-=======
-import Comment from "../components/Comment";
-export default {
-  name: "task",
-  data() {
-    return {
-      newComment: {
-        // name:this.$store.state.user.name
-      }
-    };
-  },
-  props: ["taskData"],
-  computed: {
-    comments() {
-      return this.$store.state.comments;
-    }
-  },
-  methods: {
-    getComments() {
-      this.$store.dispatch("getComments", this.taskData.id);
->>>>>>> b70750daae3712c355785f76746070bd4fb8a2ee
     },
     props: ["taskData"],
     computed: {
@@ -85,8 +65,11 @@ export default {
         this.$store.dispatch("deleteTask", this.taskData);
         this.$store.dispatch("getTasks", this.taskData.listId);
       },
-      startZone() {
+      moveTask() {
         this.$emit("dragstart");
+        //2nd way
+        //event.dataTransfer.setData("data", JSON.stringify(this.taskData));
+        //event.dataTransfer.setData("list", this.listId);
       }
     },
     components: { Comment }
