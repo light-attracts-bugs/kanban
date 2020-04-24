@@ -25,7 +25,7 @@ export default new Vuex.Store({
     activeLists: {},
     tasks: {},
     activeTasks: {},
-    comments: [],
+    comments: {},
   },
   mutations: {
     setUser(state, user) {
@@ -44,8 +44,9 @@ export default new Vuex.Store({
       //state.tasks[payload.listId] = payload.tasks
       Vue.set(state.tasks, payload.listId, payload.tasks)
     },
-    setComments(state, comments) {
-      state.comments = comments;
+    setComments(state, payload) {
+      // state.comments = comments;
+      Vue.set(state.comments, payload.taskId, payload.comment)
     },
   },
   actions: {
