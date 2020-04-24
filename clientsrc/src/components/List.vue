@@ -1,6 +1,6 @@
 <template>
   <div class="list bg-danger text-center mx-1 my-3 col-3 rounded shadow" dropzone="zone"
-    @drop.prevent="moveTask(listData)" @dragover.prevent>
+    @drop.prevent=" moveTask(listData)" @dragover.prevent>
     <div class="row text-center">
       <div class="col-12 text-right">
         <div class="btn-group rounded mt-1 text-right shadow" role="group"
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="row text-center">
-      <div class="col-12 taskItems">
+      <div class="col-12 listTasks">
         <task draggable="true" v-for="(task, index) in tasks" :key="task.id" :taskData="task" :listId="listData.id"
           @dragstart="reorderTask(task, index)">
         </task>
@@ -55,7 +55,7 @@
       //   //FIXME This does not work on page reload because the activeBoard is empty in the store
       //   return this.$store.state.activeList;
       // },
-      tempTask() {
+      tempData() {
         return this.$store.state.tempTask;
       }
     },
@@ -77,11 +77,11 @@
         console.log(task, index);
         this.$store.dispatch("setTaskToMove", {
           task: task,
-          oldRoom: this.roomData
+          oldList: this.roomData
         });
       },
-      moveTask(roomData) {
-        console.log(roomData);
+      moveTask(listData) {
+        console.log(listData);
         console.log("dropping Task");
         let task = JSON.parse(event.dataTransfer.getData("data"));
         let moveData = {

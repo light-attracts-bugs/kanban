@@ -52,13 +52,13 @@ export default new Vuex.Store({
     setTaskToMove(state, taskData) {
       state.tempTask = taskData
     },
-    removeFromRoom(state, payload) {
+    removeFromList(state, payload) {
       let list = state.lists.find(r => r.id == payload.oldListId)
       list.task = list.tasks.filter(i => i.id != payload.taskToMove.id)
     },
-    addToRoom(state, payload) {
+    addToList(state, payload) {
       let list = state.lists.find(r => r.id == payload.newListId)
-      list.items.push(payload.taskToMove)
+      list.tasks.push(payload.taskToMove)
     }
   },
   actions: {
