@@ -26,6 +26,7 @@ export default new Vuex.Store({
     tasks: {},
     activeTasks: {},
     comments: {},
+    tempTask: {}
   },
   mutations: {
     setUser(state, user) {
@@ -48,6 +49,17 @@ export default new Vuex.Store({
       // state.comments = comments;
       Vue.set(state.comments, payload.taskId, payload.comment)
     },
+    setTaskToMove(state, taskData) {
+      state.tempTask = taskData
+    },
+    removeFromRoom(state, payload) {
+      let list = state.lists.find(r => r.id == payload.oldListId)
+      list.task = list.tasks.filter(i => i.id != payload.taskToMove.id)
+    },
+    addToRoom(state, payload) {
+      let list = state.lists.find(r => r.id == payload.newListId)
+      list.items.push(payload.taskToMove)
+    }
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -214,5 +226,12 @@ export default new Vuex.Store({
       }
     },
     //#endregion
+    setTaskToMove({ commit, dispatch }, taskData) {
+      commit("setTaskToMove", taskData)
+    },
+    moveTask({ commit, dispatch }, taskData) {
+      commit("removeFromList", taskData)
+      commit("addToList", taskData)
+    }
   },
 });

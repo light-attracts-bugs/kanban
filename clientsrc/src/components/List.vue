@@ -75,7 +75,7 @@
 
       reorderTask(task, index) {
         console.log(task, index);
-        this.$store.dispatch("setItemToMove", {
+        this.$store.dispatch("setTaskToMove", {
           task: task,
           oldRoom: this.roomData
         });
