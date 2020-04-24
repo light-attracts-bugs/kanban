@@ -18,6 +18,7 @@ export default {
   data() {
     return {};
   },
+  props: ["commentData"],
   computed: {},
   methods: {
     deleteComment() {
