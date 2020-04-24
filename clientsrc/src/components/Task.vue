@@ -33,6 +33,7 @@
 
 
 <script>
+<<<<<<< HEAD
   import Comment from "../components/Comment";
   export default {
     name: "task",
@@ -40,6 +41,27 @@
       return {
         newComment: {}
       };
+=======
+import Comment from "../components/Comment";
+export default {
+  name: "task",
+  data() {
+    return {
+      newComment: {
+        // name:this.$store.state.user.name
+      }
+    };
+  },
+  props: ["taskData"],
+  computed: {
+    comments() {
+      return this.$store.state.comments;
+    }
+  },
+  methods: {
+    getComments() {
+      this.$store.dispatch("getComments", this.taskData.id);
+>>>>>>> b70750daae3712c355785f76746070bd4fb8a2ee
     },
     props: ["taskData"],
     computed: {
