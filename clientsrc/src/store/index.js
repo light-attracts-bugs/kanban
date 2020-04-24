@@ -6,14 +6,14 @@ import router from "../router/index";
 Vue.use(Vuex);
 
 //Allows axios to work locally or live
-let base = window.location.host.includes("localhost") ? '//localhost:3000' : '/'
-  ? "//localhost:3000/"
-  : "/";
+let base = window.location.host.includes("localhost") ? '//localhost:3000/' : '/'
+//  ? "//localhost:3000/"
+// : "/";
 
 let api = Axios.create({
   baseURL: base + "api/",
   timeout: 8000,
-  withCredentials: true,
+  withCredentials: true
 });
 
 export default new Vuex.Store({
@@ -90,14 +90,12 @@ export default new Vuex.Store({
     },
 
     async getBoards({ commit, dispatch }) {
-      let res = await api.get("boards").then((res) => {
-        commit("setBoards", res.data);
-      });
+      let res = await api.get("boards")
+      commit("setBoards", res.data);
     },
     async addBoard({ commit, dispatch }, boardData) {
-      let res = await api.post("boards", boardData).then((serverBoard) => {
-        dispatch("getBoards");
-      });
+      let res = await api.post("boards", boardData)
+      dispatch("getBoards");
     },
 
     async getActiveBoard({ commit, dispatch }, board) {
