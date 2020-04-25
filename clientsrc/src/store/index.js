@@ -6,14 +6,16 @@ import router from "../router/index";
 Vue.use(Vuex);
 
 //Allows axios to work locally or live
-let base = window.location.host.includes("localhost") ? '//localhost:3000/' : '/'
+let base = window.location.host.includes("localhost")
+  ? "//localhost:3000/"
+  : "/";
 //  ? "//localhost:3000/"
 // : "/";
 
 let api = Axios.create({
   baseURL: base + "api/",
   timeout: 8000,
-  withCredentials: true
+  withCredentials: true,
 });
 
 export default new Vuex.Store({
@@ -26,7 +28,7 @@ export default new Vuex.Store({
     tasks: {},
     activeTasks: {},
     comments: {},
-    tempTask: {}
+    tempTask: {},
   },
   mutations: {
     setUser(state, user) {
@@ -43,31 +45,27 @@ export default new Vuex.Store({
     },
     setTasks(state, payload) {
       //state.tasks[payload.listId] = payload.tasks
-      Vue.set(state.tasks, payload.listId, payload.tasks)
+      Vue.set(state.tasks, payload.listId, payload.tasks);
     },
     setComments(state, payload) {
       // state.comments = comments;
-      Vue.set(state.comments, payload.taskId, payload.comments)
+      Vue.set(state.comments, payload.taskId, payload.comments);
     },
     setTaskToMove(state, taskData) {
-      state.tempTask = taskData
+      state.tempTask = taskData;
     },
     removeFromList(state, payload) {
-      let list = state.lists.find(r => r.id == payload.oldListId)
-      console.log("list in removeFromList() index.js")
-      console.log(list)
-      console.log("payload in removeFromList() index.js")
-      console.log(payload)
-      list.tasks = list.tasks.filter(i => i.id != payload.taskToMove.id)
+      let list = state.lists.find((r) => r.id == payload.oldListId);
+      list.task = list.tasks.filter((i) => i.id != payload.taskToMove.id);
     },
     addToList(state, payload) {
-      let list = state.lists.find(r => r.id == payload.newListId)
-      list.tasks.push(payload.taskToMove)
-    }
+      let list = state.lists.find((r) => r.id == payload.newListId);
+      list.tasks.push(payload.taskToMove);
+    },
   },
   actions: {
     //#region -- AUTH STUFF --
-    setBearer({ }, bearer) {
+    setBearer({}, bearer) {
       api.defaults.headers.authorization = bearer;
     },
     resetBearer() {
@@ -94,11 +92,11 @@ export default new Vuex.Store({
     },
 
     async getBoards({ commit, dispatch }) {
-      let res = await api.get("boards")
+      let res = await api.get("boards");
       commit("setBoards", res.data);
     },
     async addBoard({ commit, dispatch }, boardData) {
-      let res = await api.post("boards", boardData)
+      let res = await api.post("boards", boardData);
       dispatch("getBoards");
     },
 
@@ -229,16 +227,20 @@ export default new Vuex.Store({
     },
     //#endregion
     setTaskToMove({ commit, dispatch }, taskData) {
-      commit("setTaskToMove", taskData)
+      commit("setTaskToMove", taskData);
     },
-    moveTask({ commit, dispatch }, taskData) {
-      // commit("removeFromList", taskData)
-      // commit("addToList", taskData)
 
-      console.log("taskData moveTask index.js")
-      console.log(taskData)
-      commit("addToList", taskData)
-      commit("removeFromList", taskData)
-    }
+    async moveTask({ commit, dispatch }, taskData) {
+      console.log("moveTask index.js taskData: ", taskData);
+      try {
+        let res = await api.put("tasks/" + taskData.taskToMove.id, {
+          listId: taskData.newListId,
+        });
+        dispatch("getTasks", taskData.newListId);
+        dispatch("getTasks", taskData.oldListId);
+      } catch (error) {}
+      commit("removeFromList", taskData);
+      commit("addToList", taskData);
+    },
   },
 });
