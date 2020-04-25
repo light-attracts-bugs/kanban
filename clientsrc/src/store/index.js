@@ -54,7 +54,11 @@ export default new Vuex.Store({
     },
     removeFromList(state, payload) {
       let list = state.lists.find(r => r.id == payload.oldListId)
-      list.task = list.tasks.filter(i => i.id != payload.taskToMove.id)
+      console.log("list in removeFromList() index.js")
+      console.log(list)
+      console.log("payload in removeFromList() index.js")
+      console.log(payload)
+      list.tasks = list.tasks.filter(i => i.id != payload.taskToMove.id)
     },
     addToList(state, payload) {
       let list = state.lists.find(r => r.id == payload.newListId)
@@ -228,8 +232,13 @@ export default new Vuex.Store({
       commit("setTaskToMove", taskData)
     },
     moveTask({ commit, dispatch }, taskData) {
-      commit("removeFromList", taskData)
+      // commit("removeFromList", taskData)
+      // commit("addToList", taskData)
+
+      console.log("taskData moveTask index.js")
+      console.log(taskData)
       commit("addToList", taskData)
+      commit("removeFromList", taskData)
     }
   },
 });

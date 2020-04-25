@@ -77,6 +77,7 @@
         console.log(this.newTask);
 
         this.$store.dispatch("addTask", this.newTask);
+        
         this.newList = {};
         this.$store.dispatch("getTasks", this.listData.id);
       },
@@ -89,19 +90,26 @@
         console.log(task, index);
         this.$store.dispatch("setTaskToMove", {
           task: task,
-          oldList: this.roomData
+          oldList: this.listData
         });
       },
       moveTask(listData) {
         console.log("dropping Task");
+        console.log("listData in List.vue")
         console.log(listData);
+        console.log("this.tempData in List.vue")
         console.log(this.tempData);
-        let task = JSON.parse(event.dataTransfer.getData("data"));
+        console.log("this.tempData.task in List.vue")
+        console.log(this.tempData.task)
+        // let task = JSON.parse(event.dataTransfer.getData("data"));
         let moveData = {
           newListId: listData.id,
-          oldListId: event.dataTransfer.getData("list"),
-          taskToMove: task
+          // oldListId: event.dataTransfer.getData("list"),
+          oldListId: this.tempData.oldList.id,
+          taskToMove: this.tempData.task
         };
+        console.log("moveData.taskToMove in List.vue")
+        console.log(moveData.taskToMove)
         this.$store.dispatch("moveTask", moveData);
       }
     },
