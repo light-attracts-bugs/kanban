@@ -54,14 +54,14 @@ export default new Vuex.Store({
     setTaskToMove(state, taskData) {
       state.tempTask = taskData;
     },
-    removeFromList(state, payload) {
-      let list = state.lists.find((r) => r.id == payload.oldListId);
-      list.task = list.tasks.filter((i) => i.id != payload.taskToMove.id);
-    },
-    addToList(state, payload) {
-      let list = state.lists.find((r) => r.id == payload.newListId);
-      list.tasks.push(payload.taskToMove);
-    },
+    // removeFromList(state, payload) {
+    //   let list = state.lists.find((r) => r.id == payload.oldListId);
+    //   list.task = list.tasks.filter((i) => i.id != payload.taskToMove.id);
+    // },
+    // addToList(state, payload) {
+    //   let list = state.lists.find((r) => r.id == payload.newListId);
+    //   list.tasks.push(payload.taskToMove);
+    // },
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -162,7 +162,6 @@ export default new Vuex.Store({
     async getTasks({ commit, dispatch }, listId) {
       try {
         let res = await api.get("lists/" + listId + "/tasks");
-        console.log("getTasks called... res:", res);
         commit("setTasks", { listId, tasks: res.data });
       } catch (err) {
         console.error(err);
@@ -199,7 +198,6 @@ export default new Vuex.Store({
     async getComments({ commit, dispatch }, taskId) {
       try {
         let res = await api.get("tasks/" + taskId + "/comments");
-        console.log("comments", res.data);
         commit("setComments", { taskId, comments: res.data });
       } catch (error) {
         console.error(error);
@@ -239,8 +237,8 @@ export default new Vuex.Store({
         dispatch("getTasks", taskData.newListId);
         dispatch("getTasks", taskData.oldListId);
       } catch (error) {}
-      commit("removeFromList", taskData);
-      commit("addToList", taskData);
+      // commit("removeFromList", taskData);
+      // commit("addToList", taskData);
     },
   },
 });

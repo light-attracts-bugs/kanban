@@ -103,10 +103,7 @@ export default {
 
     addTask() {
       this.newTask.listId = this.listData.id;
-      console.log(this.newTask);
-
       this.$store.dispatch("addTask", this.newTask);
-
       this.newList = {};
       this.$store.dispatch("getTasks", this.listData.id);
     },
@@ -116,20 +113,20 @@ export default {
     },
 
     reorderTask(task, index) {
-      console.log(task, index);
+      // console.log(task, index);
       this.$store.dispatch("setTaskToMove", {
         task: task,
         oldList: this.listData
       });
     },
     moveTask(listData) {
-      console.log("dropping Task");
-      console.log("listData in List.vue");
-      console.log(listData);
-      console.log("this.tempData in List.vue");
-      console.log(this.tempData);
-      console.log("this.tempData.task in List.vue");
-      console.log(this.tempData.task);
+      // console.log("dropping Task");
+      // console.log("listData in List.vue");
+      // console.log(listData);
+      // console.log("this.tempData in List.vue");
+      // console.log(this.tempData);
+      // console.log("this.tempData.task in List.vue");
+      // console.log(this.tempData.task);
       // let task = JSON.parse(event.dataTransfer.getData("data"));
       let moveData = {
         newListId: listData.id,
@@ -137,8 +134,8 @@ export default {
         oldListId: this.tempData.oldList.id,
         taskToMove: this.tempData.task
       };
-      console.log("moveData.taskToMove in List.vue");
-      console.log(moveData.taskToMove);
+      // console.log("moveData.taskToMove in List.vue");
+      // console.log(moveData.taskToMove);
       this.$store.dispatch("moveTask", moveData);
     }
   },

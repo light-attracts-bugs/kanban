@@ -81,7 +81,7 @@ export default {
     addComment() {
       this.newComment.creatorName = this.$auth.user.name;
       this.newComment.taskId = this.taskData.id;
-      console.log(this.newComment);
+      //console.log(this.newComment);
       this.$store.dispatch("addComment", this.newComment);
       this.newComment = {};
       this.getComments();
